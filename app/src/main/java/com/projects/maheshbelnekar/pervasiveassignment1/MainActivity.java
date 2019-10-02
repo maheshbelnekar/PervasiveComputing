@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
         loginIntent.putExtra("phone",phone);
         loginIntent.putExtra("email",email);
 
-        Toast.makeText(this,name+phone+email,Toast.LENGTH_SHORT).show();
-
         startActivity(loginIntent);
 
         return true;

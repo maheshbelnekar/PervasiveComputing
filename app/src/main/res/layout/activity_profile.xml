@@ -66,7 +66,7 @@
         android:paddingVertical="15dp">
 
         <Button
-            android:id="@+id/add_profile"
+            android:id="@+id/add_memo_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -83,10 +83,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ListView
+            android:id="@+id/memo_list_profile"
             android:layout_width="395dp"
             android:layout_height="365dp"
             tools:layout_editor_absoluteX="8dp"
