@@ -13,6 +13,8 @@ public class AddMemo extends AppCompatActivity {
     private EditText memoEditText;
     private Button saveButton;
 
+    private MemoDBManager memoDbManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,9 @@ public class AddMemo extends AppCompatActivity {
         titleEditText = findViewById(R.id.title_memo);
         memoEditText = findViewById(R.id.memo_memo);
         saveButton = findViewById(R.id.save_memo);
+
+        memoDbManager = new MemoDBManager(this);
+        memoDbManager.open();
 
         // attach listener
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -38,13 +43,19 @@ public class AddMemo extends AppCompatActivity {
         String title = titleEditText.getText().toString();
         String memo = memoEditText.getText().toString();
 
+        memoDbManager.insert(title,memo);
+
         Intent addMemoIntent = new Intent(AddMemo.this, Profile.class);
         addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        addMemoIntent.putExtra("title",title);
-        addMemoIntent.putExtra("memo",memo);
-
         startActivity(addMemoIntent);
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        memoDbManager.close();
     }
 }

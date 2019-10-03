@@ -1,13 +1,20 @@
 package com.projects.maheshbelnekar.pervasiveassignment1;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class Profile extends AppCompatActivity {
 
@@ -17,6 +24,10 @@ public class Profile extends AppCompatActivity {
     private TextView emailTextView;
     private Button addMemoButton;
     private ListView memoListListView;
+    private ArrayAdapter adapter;
+
+
+    private MemoDBManager memoDbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +45,11 @@ public class Profile extends AppCompatActivity {
         addMemoButton = findViewById(R.id.add_memo_profile);
         memoListListView = findViewById(R.id.memo_list_profile);
 
-
+        memoDbManager = new MemoDBManager(this);
+        memoDbManager.open();
         initializeProfile();
 
-        populateList();
+        initializeMemoList();
 
         addMemoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +57,15 @@ public class Profile extends AppCompatActivity {
                 addNewMemo();
             }
         });
+    }
+
+    private void initializeMemoList() {
+        List<String> memoTitleList = memoDbManager.getMemoTitleList();
+
+        adapter = new ArrayAdapter(this, R.layout.memo_item_layout, memoTitleList);
+
+        memoListListView.setAdapter(adapter);
+        memoDbManager.close();
     }
 
     private void initializeProfile() {
@@ -55,11 +76,11 @@ public class Profile extends AppCompatActivity {
         String phone = loginIntent.getStringExtra("phone");
         String email = loginIntent.getStringExtra("email");
 
-        if (!name.isEmpty())
+        if (name!= null && !name.isEmpty())
             nameTextView.setText(name);
-        if (!phone.isEmpty())
+        if (phone != null && !phone.isEmpty())
             phoneTextView.setText(phone);
-        if (!email.isEmpty())
+        if (email!= null && !email.isEmpty())
             emailTextView.setText(email);
 
     }
@@ -72,9 +93,10 @@ public class Profile extends AppCompatActivity {
         return true;
     }
 
-    private Boolean populateList() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-        // Todo: Read from sql database
-        return true;
+        memoDbManager.close();
     }
 }
