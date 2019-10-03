@@ -34,6 +34,9 @@ public class Profile extends AppCompatActivity {
         addMemoButton = findViewById(R.id.add_memo_profile);
         memoListListView = findViewById(R.id.memo_list_profile);
 
+
+        initializeProfile();
+
         populateList();
 
         addMemoButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +45,23 @@ public class Profile extends AppCompatActivity {
                 addNewMemo();
             }
         });
+    }
+
+    private void initializeProfile() {
+
+        Intent loginIntent = getIntent();
+
+        String name = loginIntent.getStringExtra("name");
+        String phone = loginIntent.getStringExtra("phone");
+        String email = loginIntent.getStringExtra("email");
+
+        if (!name.isEmpty())
+            nameTextView.setText(name);
+        if (!phone.isEmpty())
+            phoneTextView.setText(phone);
+        if (!email.isEmpty())
+            emailTextView.setText(email);
+
     }
 
     private Boolean addNewMemo() {

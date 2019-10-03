@@ -25,8 +25,8 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="209dp"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_marginStart="42dp"
             android:layout_marginTop="22dp"
@@ -37,23 +37,26 @@
             <TextView
                 android:id="@+id/name_profile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
                 android:text="Name"
-                android:paddingVertical="5dp"/>
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/phone_profile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
                 android:text="Phone Number"
-                android:paddingVertical="5dp"/>
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/email_profile"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
                 android:text="Email"
-                android:paddingVertical="5dp"/>
+                android:textSize="17sp"/>
         </LinearLayout>
 
 
@@ -69,16 +72,12 @@
             android:id="@+id/add_memo_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:background="@android:color/holo_blue_dark"
             android:text="ADD"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@android:color/holo_blue_dark"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout

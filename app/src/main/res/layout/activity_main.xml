@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/inputs"
             android:hint="Name"
-            android:padding="20dp" />
+            android:padding="20dp"
+            />
 
         <EditText
             android:id="@+id/phone"
@@ -28,7 +29,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/inputs"
             android:hint="Phone Number"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:inputType="phone"/>
 
         <EditText
             android:id="@+id/email"
@@ -36,7 +38,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/inputs"
             android:hint="Email Id"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:inputType="textEmailAddress"/>
 
     </LinearLayout>
 
