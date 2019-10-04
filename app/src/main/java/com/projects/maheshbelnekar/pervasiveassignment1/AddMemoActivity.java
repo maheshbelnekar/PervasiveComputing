@@ -15,6 +15,7 @@ public class AddMemoActivity extends AppCompatActivity {
     private Button editButton;
 
     private String REQUEST_TYPE;
+    private String oldTitle;
 
     private MemoDBManager memoDbManager;
 
@@ -42,6 +43,7 @@ public class AddMemoActivity extends AppCompatActivity {
 
             titleEditText.setText(memo.getTitle());
             memoEditText.setText(memo.getContent());
+            oldTitle = memo.getTitle();
         }
         else {
             saveButton.setVisibility(View.VISIBLE);
@@ -58,18 +60,18 @@ public class AddMemoActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editMemo();
+                editMemo(oldTitle);
             }
         });
     }
 
-    private Boolean editMemo() {
+    private Boolean editMemo(String oldTitle) {
 
         // Extract values first
         String title = titleEditText.getText().toString();
         String memo = memoEditText.getText().toString();
 
-        memoDbManager.updateUsingTitle(title,memo);
+        memoDbManager.updateUsingTitle(oldTitle, title, memo);
 
         Intent addMemoIntent = new Intent(AddMemoActivity.this, ProfileActivity.class);
         addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -65,14 +65,13 @@ public class MemoDBManager {
         return i;
     }
 
-    public int updateUsingTitle(String title, String content) {
+    public int updateUsingTitle(String oldTitle, String newTitle, String content) {
         ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.TITLE, newTitle);
         contentValues.put(DatabaseHelper.CONTENT, content);
-        int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.TITLE + " =?", new String[] {title});
+        int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.TITLE + " =?", new String[] {oldTitle});
         return i;
     }
-
-
 
     public void delete(long _id) {
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper._ID + "=" + _id, null);
