@@ -48,6 +48,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="48dp" />
+            tools:layout_editor_absoluteY="48dp"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/edit_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="Edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="48dp"
+            android:visibility="invisible"/>
+
     </android.support.constraint.ConstraintLayout>
 </LinearLayout>

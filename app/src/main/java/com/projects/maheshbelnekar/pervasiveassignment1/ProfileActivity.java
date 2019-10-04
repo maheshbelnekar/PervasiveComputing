@@ -3,22 +3,21 @@ package com.projects.maheshbelnekar.pervasiveassignment1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
-public class Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private ImageView profileImage;
     private TextView nameTextView;
@@ -64,10 +63,18 @@ public class Profile extends AppCompatActivity {
         List<String> memoTitleList = memoDbManager.getMemoTitleList();
 
         adapter = new ArrayAdapter(this, R.layout.memo_item_layout, memoTitleList);
+        adapter.notifyDataSetChanged();
 
         memoListListView.setAdapter(adapter);
 
-        memoDbManager.close();
+        memoListListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(getBaseContext(),adapter.getItem(position).toString(), Toast.LENGTH_LONG).show();
+                editMemo(adapter.getItem(position).toString());
+            }
+        });
+
     }
 
     private void initializeProfile() {
@@ -91,8 +98,20 @@ public class Profile extends AppCompatActivity {
 
     private Boolean addNewMemo() {
 
-        Intent addNewMemoIntent = new Intent(Profile.this, AddMemo.class);
+        Intent addNewMemoIntent = new Intent(ProfileActivity.this, AddMemoActivity.class);
+        addNewMemoIntent.putExtra("REQUEST_TYPE","add");
+
         startActivity(addNewMemoIntent);
+
+        return true;
+    }
+
+    private Boolean editMemo(String title) {
+        Intent editMemoIntent = new Intent(ProfileActivity.this, AddMemoActivity.class);
+        editMemoIntent.putExtra("REQUEST_TYPE","edit");
+        editMemoIntent.putExtra("TITLE",title);
+
+        startActivity(editMemoIntent);
 
         return true;
     }

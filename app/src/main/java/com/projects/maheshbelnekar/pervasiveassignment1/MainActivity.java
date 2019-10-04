@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         phone = phoneEditText.getText().toString();
         email = emailEditText.getText().toString();
 
-        Intent loginIntent = new Intent(MainActivity.this, Profile.class);
+        Intent loginIntent = new Intent(MainActivity.this, ProfileActivity.class);
         loginIntent.putExtra("name",name);
         loginIntent.putExtra("phone",phone);
         loginIntent.putExtra("email",email);
