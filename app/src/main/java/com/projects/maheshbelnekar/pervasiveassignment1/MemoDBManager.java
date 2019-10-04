@@ -50,7 +50,7 @@ public class MemoDBManager {
 
     public Cursor fetchUsingTitle(String title) {
             String[] columns = new String[] { DatabaseHelper._ID, DatabaseHelper.TITLE, DatabaseHelper.CONTENT };
-            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, null, null, null, null, null);
+            Cursor cursor = database.query(DatabaseHelper.TABLE_NAME, columns, DatabaseHelper.TITLE + " =?", new String[] {title}, null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
             }
@@ -68,7 +68,7 @@ public class MemoDBManager {
     public int updateUsingTitle(String title, String content) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.CONTENT, content);
-        int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.TITLE + " = " + title, null);
+        int i = database.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.TITLE + " =?", new String[] {title});
         return i;
     }
 
@@ -95,7 +95,7 @@ public class MemoDBManager {
     }
 
     public Memo getMemoDetailsUsingTitle(String title) {
-        Cursor cursor = fetch();
+        Cursor cursor = fetchUsingTitle(title);
 
         String content = cursor.getString(2);
 

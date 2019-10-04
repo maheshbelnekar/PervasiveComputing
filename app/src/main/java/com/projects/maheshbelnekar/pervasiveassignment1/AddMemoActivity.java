@@ -37,7 +37,11 @@ public class AddMemoActivity extends AppCompatActivity {
 
         if (REQUEST_TYPE!=null && REQUEST_TYPE.equals("edit")) {
             editButton.setVisibility(View.VISIBLE);
-            titleEditText.setText(intent.getStringExtra("TITLE"));
+            String title = intent.getStringExtra("TITLE");
+            Memo memo= memoDbManager.getMemoDetailsUsingTitle(title);
+
+            titleEditText.setText(memo.getTitle());
+            memoEditText.setText(memo.getContent());
         }
         else {
             saveButton.setVisibility(View.VISIBLE);
@@ -67,6 +71,10 @@ public class AddMemoActivity extends AppCompatActivity {
 
         memoDbManager.updateUsingTitle(title,memo);
 
+        Intent addMemoIntent = new Intent(AddMemoActivity.this, ProfileActivity.class);
+        addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(addMemoIntent);
+
         return true;
     }
 
@@ -79,7 +87,7 @@ public class AddMemoActivity extends AppCompatActivity {
         memoDbManager.insert(title,memo);
 
         Intent addMemoIntent = new Intent(AddMemoActivity.this, ProfileActivity.class);
-//        addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(addMemoIntent);
 
         return true;
