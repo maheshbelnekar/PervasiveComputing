@@ -82,6 +82,10 @@ public class MemoDBManager {
 
         List<Memo> memoList = new ArrayList<>();
 
+        if(cursor.getCount() <= 0) {
+            return memoList;
+        }
+
         String title, content;
         do {
             title = cursor.getString(1);
@@ -105,6 +109,10 @@ public class MemoDBManager {
         Cursor cursor = fetch();
 
         List<String> memoTitleList = new ArrayList<>();
+
+        if(cursor.getCount() <= 0) {
+            return memoTitleList;
+        }
 
         String title, content;
         do {
