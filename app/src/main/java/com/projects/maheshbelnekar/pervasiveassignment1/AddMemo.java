@@ -46,7 +46,7 @@ public class AddMemo extends AppCompatActivity {
         memoDbManager.insert(title,memo);
 
         Intent addMemoIntent = new Intent(AddMemo.this, Profile.class);
-        addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        addMemoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(addMemoIntent);
 
         return true;

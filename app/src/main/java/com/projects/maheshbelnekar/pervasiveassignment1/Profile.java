@@ -1,6 +1,8 @@
 package com.projects.maheshbelnekar.pervasiveassignment1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +28,8 @@ public class Profile extends AppCompatActivity {
     private ListView memoListListView;
     private ArrayAdapter adapter;
 
+    private String TAG = "Mahesh";
+
 
     private MemoDBManager memoDbManager;
 
@@ -33,9 +37,6 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        // Todo Initialize SQLite
-
 
         // Initialize
         profileImage = findViewById(R.id.image_profile);
@@ -47,8 +48,8 @@ public class Profile extends AppCompatActivity {
 
         memoDbManager = new MemoDBManager(this);
         memoDbManager.open();
-        initializeProfile();
 
+        initializeProfile();
         initializeMemoList();
 
         addMemoButton.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +66,7 @@ public class Profile extends AppCompatActivity {
         adapter = new ArrayAdapter(this, R.layout.memo_item_layout, memoTitleList);
 
         memoListListView.setAdapter(adapter);
+
         memoDbManager.close();
     }
 
@@ -83,6 +85,8 @@ public class Profile extends AppCompatActivity {
         if (email!= null && !email.isEmpty())
             emailTextView.setText(email);
 
+        storeProfileInfo();
+
     }
 
     private Boolean addNewMemo() {
@@ -93,10 +97,86 @@ public class Profile extends AppCompatActivity {
         return true;
     }
 
+    private void storeProfileInfo() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPref.edit();
+        String name = nameTextView.getText().toString();
+        String phone = phoneTextView.getText().toString();
+        String email = emailTextView.getText().toString();
+
+        if (name!= null && !name.isEmpty() && !name.equals("Name"))
+            editor.putString("PROFILE_NAME",name);
+
+        if (phone != null && !phone.isEmpty() && !phone.equals("Phone Number"))
+            editor.putString("PROFILE_PHONE",phone);
+
+        if (email!= null && !email.isEmpty() && !email.equals("Email"))
+            editor.putString("PROFILE_EMAIL",email);
+
+        editor.apply();
+    }
+
+    private Boolean retrieveProfileInfo() {
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+
+        String name = sharedPref.getString("PROFILE_NAME","");
+        String phone = sharedPref.getString("PROFILE_PHONE","");
+        String email = sharedPref.getString("PROFILE_EMAIL","");
+
+        if (name!= null && !name.isEmpty() && !name.equals("Name"))
+            nameTextView.setText(name);
+
+        if (phone != null && !phone.isEmpty() && !phone.equals("Phone Number")) {
+            phoneTextView.setText(phone);
+        }
+
+        if (email!= null && !email.isEmpty() && !email.equals("Email")) {
+            emailTextView.setText(email);
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: ");
+        storeProfileInfo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
+        retrieveProfileInfo();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop: ");
+        storeProfileInfo();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(TAG, "onRestart: ");
+        retrieveProfileInfo();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart: ");
+        initializeProfile();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        Log.i(TAG, "onDestroy: ");
         memoDbManager.close();
     }
 }
