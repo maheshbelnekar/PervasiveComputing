@@ -160,42 +160,42 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause: ");
+//        Log.i(TAG, "onPause: ");
         storeProfileInfo();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume: ");
+//        Log.i(TAG, "onResume: ");
         retrieveProfileInfo();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop: ");
+//        Log.i(TAG, "onStop: ");
         storeProfileInfo();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i(TAG, "onRestart: ");
+//        Log.i(TAG, "onRestart: ");
         retrieveProfileInfo();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart: ");
+//        Log.i(TAG, "onStart: ");
         initializeProfile();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy: ");
+//        Log.i(TAG, "onDestroy: ");
         memoDbManager.close();
     }
 }
